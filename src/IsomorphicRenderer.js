@@ -1,5 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
+import PropTypes from 'prop-types';
 
 const INACTIVE_READY_STATE = {
   aborted: false,
@@ -116,17 +117,21 @@ export default class IsomorphicRenderer extends React.Component {
 }
 
 IsomorphicRenderer.propTypes = {
-  Container: Relay.PropTypes.Container,
-  forceFetch: React.PropTypes.bool,
-  initialReadyState: React.PropTypes.shape({
-    aborted: React.PropTypes.bool.isRequired,
-    done: React.PropTypes.bool.isRequired,
-    error: React.PropTypes.any,
-    ready: React.PropTypes.bool.isRequired,
-    stale: React.PropTypes.bool.isRequired,
+  Container: PropTypes.oneOfType([
+      PropTypes.element,
+      PropTypes.func,
+      PropTypes.object
+  ]),
+  forceFetch: PropTypes.bool,
+  initialReadyState: PropTypes.shape({
+    aborted: PropTypes.bool.isRequired,
+    done: PropTypes.bool.isRequired,
+    error: PropTypes.any,
+    ready: PropTypes.bool.isRequired,
+    stale: PropTypes.bool.isRequired,
   }),
-  onReadyStateChange: React.PropTypes.func,
-  queryConfig: Relay.PropTypes.QueryConfig.isRequired,
-  environment: Relay.PropTypes.Environment,
-  render: React.PropTypes.func,
+  onReadyStateChange: PropTypes.func,
+  queryConfig: PropTypes.object.isRequired,
+  environment: PropTypes.object,
+  render: PropTypes.func,
 };
